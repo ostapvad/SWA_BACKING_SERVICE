@@ -1,0 +1,23 @@
+##
+GET http://localhost:8080/measurements?city=Chaicago&from=2023-05-23T18:25:43.511Z&to=2023-05-23T18:25:43.511Z&
+Accept: application/json
+
+
+###
+POST http://localhost:8080/measurements
+Content-Type: application/json
+
+{
+  "time": "2023-04-23T18:25:43.511Z",
+  "city": "Chicago",
+  "temperature": 23,
+  "pressure": 1015,
+  "humidity": 64,
+  "wind": {
+    "speed": 0.62,
+    "deg": 349,
+    "gust": 1.18
+  }
+}
+
+
