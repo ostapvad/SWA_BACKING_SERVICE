@@ -7,9 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MeasurementRepository extends JpaRepository<WeatherMeasurement, Long>{
-  //  List<Measurement> FindByCity(String city);
+
     List <WeatherMeasurement> findWeatherMeasurementsByCityAndTimeBetween(String city, LocalDateTime from,
                                                                                   LocalDateTime to);
-    List<WeatherMeasurement>findWeatherMeasurementsByCity(String city);
 
 }

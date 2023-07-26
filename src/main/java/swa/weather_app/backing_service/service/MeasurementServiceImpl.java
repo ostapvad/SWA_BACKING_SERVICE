@@ -31,7 +31,8 @@ public class MeasurementServiceImpl implements MeasurementService{
 
     @Override
     public List<WeatherMeasurement> findByCityAndFromToTime(String city, LocalDateTime from, LocalDateTime to) throws CityMeasurementsAreNotFound {
-        List<WeatherMeasurement> foundMeasurements  = measurementRepository.findWeatherMeasurementsByCityAndTimeBetween(city, from, to);
+        List<WeatherMeasurement> foundMeasurements  = measurementRepository.
+                findWeatherMeasurementsByCityAndTimeBetween(city, from, to);
         if(foundMeasurements.isEmpty()){
             LOGGER.warn("Measurements are not found!");
             throw new CityMeasurementsAreNotFound(String.format("Measurements for city %s are not presented in the " +

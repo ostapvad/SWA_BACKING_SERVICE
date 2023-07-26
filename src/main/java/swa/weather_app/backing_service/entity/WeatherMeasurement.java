@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @Entity(name = "measurements")
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class WeatherMeasurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +35,7 @@ public class WeatherMeasurement {
     private Integer pressure;
 
     @Column(name = "humidity")
-    private int humidity;
+    private Integer humidity;
 
     @Embedded
     @AttributeOverrides({

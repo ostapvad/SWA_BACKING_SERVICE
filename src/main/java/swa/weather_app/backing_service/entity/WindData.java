@@ -8,12 +8,17 @@ package swa.weather_app.backing_service.entity;
 //          }
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
 import lombok.*;
 
 
 @Embeddable
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class WindData {
     private Float speed;
     private Integer deg;
