@@ -13,6 +13,7 @@ import swa.weather_app.backing_service.entity.WeatherMeasurement;
 import swa.weather_app.backing_service.service.MeasurementService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
