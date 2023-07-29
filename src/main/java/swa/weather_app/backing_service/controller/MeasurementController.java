@@ -8,12 +8,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriUtils;
 import swa.weather_app.backing_service.dtos.WeatherMeasurementDTO;
 import swa.weather_app.backing_service.entity.WeatherMeasurement;
 import swa.weather_app.backing_service.entity.WindData;
 import swa.weather_app.backing_service.error.CityMeasurementsAreNotFound;
 import swa.weather_app.backing_service.service.MeasurementService;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -64,6 +66,7 @@ public class MeasurementController {
                                                                                  @RequestParam(name = "to")
                                                                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                                                  LocalDateTime to) throws CityMeasurementsAreNotFound {
+        city = UriUtils.decode(city, StandardCharsets.UTF_8);
         LOGGER.info(String.format("Getting measurements of city %s till the date %s", city, to.toString()));
 
         List<WeatherMeasurement> foundMeasurements = measurementService.findByCityAndFromToTime(city, from, to);
