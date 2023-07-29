@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/measurements")
 public class MeasurementController {
 
 
@@ -35,7 +34,7 @@ public class MeasurementController {
         return new ResponseEntity<>("Backing service is OK.", HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/measurements")
     public ResponseEntity<WeatherMeasurement> saveMeasurement(@RequestBody WeatherMeasurementDTO measurementDTO) {
         LOGGER.info(String.format("Posting new weather measurement of city %s", measurementDTO.getCity()));
         var weatherMeasurement = WeatherMeasurement.builder()
@@ -50,13 +49,13 @@ public class MeasurementController {
         return ResponseEntity.status(HttpStatus.CREATED).body(measurementService.saveNewMeasurement(weatherMeasurement));
     }
 
-    @GetMapping("/all")
+    @GetMapping("/measurements/all")
     public ResponseEntity<List<WeatherMeasurement>> retrieveAllMeasurements() {
 
         return ResponseEntity.status(HttpStatus.OK).body(measurementService.retrieveAllMeasurements());
     }
 
-    @GetMapping()
+    @GetMapping("/measurements")
     public ResponseEntity<List<WeatherMeasurement>> getMeasurementsByCityAndTime(@RequestParam(name = "city")
                                                                                  String city,
                                                                                  @RequestParam(name = "from")
