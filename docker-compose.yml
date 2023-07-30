@@ -1,5 +1,5 @@
 # 1. Change the paths in .env file
-# 2. Run mvn install in every service (if the tests ar failing add
+# 2. Run mvn install in every service (if the tests ar failing add -DskipTests)
 # 3. Run docker-compose up --build
 version: '3.8'
 services:
