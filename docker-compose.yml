@@ -1,9 +1,11 @@
-version: "3.8"
-
+# 1. Change the paths in .env file
+# 2. Run mvn install in every service (if the tests ar failing add
+# 3. Run docker-compose up --build
+version: '3.8'
 services:
-  db:
+  backing-service-database:
     image: postgres
-    container_name: db
+    container_name: backing-service-database
     environment:
       - POSTGRES_USER=main
       - POSTGRES_PASSWORD=postgres
@@ -11,15 +13,16 @@ services:
     ports:
       - '5432:5432'
     restart: always
-  app:
+  backing-service:
+    container_name: backing-service
     build:
-      context: .
+      context: ${BACKING_SERVICE_CONTEXT}
       dockerfile: Dockerfile
-    container_name: back_app
+    image: backing-service:latest
     ports:
       - '8082:8082'
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/measurements
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://backing-service-database:5432/measurements
       - SPRING_DATASOURCE_USERNAME=main
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
@@ -27,9 +30,46 @@ services:
       - SPRING_JPA_SHOW-SQL=true
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
     depends_on:
-      - db
+      - backing-service-database
     restart: always
-
-
-
-
+  weather-measurement-service:
+    container_name: weather-measurement-service
+    build:
+      context: ${WEATHER_MEASUREMENT_SERVICE_CONTEXT}
+      dockerfile: Dockerfile
+    image: weather-measurement-service:latest
+    ports:
+      - '8084:8084'
+    depends_on:
+      - backing-service-database
+      - backing-service
+  location-service:
+    container_name: location-service
+    build:
+      context: ${LOCATION_SERVICE_CONTEXT}
+      dockerfile: Dockerfile
+    image: location-service:latest
+    ports:
+      - '8083:8083'
+  weather-prediction-service:
+    container_name: weather-prediction-service
+    build:
+      context: ${WEATHER_PREDICTION_SERVICE_CONTEXT}
+      dockerfile: Dockerfile
+    image: weather-prediction-service:latest
+    ports:
+      - '8081:8081'
+  gateway-service:
+    container_name: gateway-service
+    build:
+      context: ${GATEWAY_SERVICE_CONTEXT}
+      dockerfile: Dockerfile
+    image: gateway-service:latest
+    ports:
+      - '8085:8085'
+    depends_on:
+      - weather-prediction-service
+      - weather-measurement-service
+      - location-service
+      - backing-service-database
+      - backing-service
