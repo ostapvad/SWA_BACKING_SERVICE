@@ -15,6 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 import org.springframework.test.web.servlet.MockMvc;
+import swa.weather_app.backing_service.dtos.WeatherMeasurementDTO;
 import swa.weather_app.backing_service.entity.WeatherMeasurement;
 import swa.weather_app.backing_service.entity.WindData;
 import swa.weather_app.backing_service.error.CityMeasurementsAreNotFound;
@@ -46,8 +47,8 @@ class MeasurementControllerTest {
     @DisplayName("Ensures that post request has Created response")
     @Order(1)
     void PostResponseIsCorrect() throws  Exception{
-        MockHttpServletResponse response =  mockMvc.perform(post("/measurements").contentType(
-                MediaType.APPLICATION_JSON).content("{\"city\": \"Odesa\"}")).andReturn().getResponse();
+        MockHttpServletResponse response =  mockMvc.perform(post("/measurements").
+                contentType(MediaType.APPLICATION_JSON).content("{\"city\": \"Odesa\"}")).andReturn().getResponse();
         Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
     @Test

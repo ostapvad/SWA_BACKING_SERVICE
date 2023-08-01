@@ -5,3 +5,4 @@ EXPOSE $SERVICE_PORT
 ENTRYPOINT ["java", "-jar", "/backingService.jar"]
 HEALTHCHECK	--interval=10s --timeout=3s --start-period=15s \
 			CMD wget --quiet --tries=1 --spider http://localhost:$SERVICE_PORT || exit 1
+

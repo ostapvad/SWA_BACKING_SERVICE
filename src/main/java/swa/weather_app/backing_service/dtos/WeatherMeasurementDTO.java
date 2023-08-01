@@ -1,7 +1,9 @@
 package swa.weather_app.backing_service.dtos;
 
-import java.time.LocalDateTime;
+import lombok.Builder;
 
+import java.time.LocalDateTime;
+//@Builder
 public class WeatherMeasurementDTO {
     private LocalDateTime time;
 
@@ -14,6 +16,9 @@ public class WeatherMeasurementDTO {
     private int humidity;
 
     private WindDTO wind;
+    public WeatherMeasurementDTO(){
+        this.wind = new WindDTO();
+    }
 
     public LocalDateTime getTime() {
         return time;
