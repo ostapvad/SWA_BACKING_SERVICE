@@ -15,7 +15,7 @@ build_job:
   stage: build-app
   script:
     - echo "Building Spring Boot app..."
-   # - apk --no-cache add openjdk17 maven
+    - apk --no-cache add maven
     - mvn package
 
 test_job:
