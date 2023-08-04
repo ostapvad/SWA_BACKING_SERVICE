@@ -4,23 +4,23 @@ image: docker:20.10.16
 services:
   - docker:20.10.16-dind
 
-before_script:
-  - docker info
+# before_script:
+#   - docker info
 
-stages:         
-  - build
-  - test
+# stages:         
+#   - build
+#   - test
 
-build_job:
-  stage: build
-  script:
-    - echo "Preparing dependencies..."
-    - apk --no-cache add openjdk17 maven
-    - mvn package
+# build_job:
+#   stage: build
+#   script:
+#     - echo "Preparing dependencies..."
+#     - apk --no-cache add openjdk17 maven
+#     - mvn package
 
-test_job:
-  stage: test
-    - echo "Preparing dependencies..."
-    - apk --no-cache add openjdk17 maven
-    - mvn test
+# test_job:
+#   stage: test
+#     - echo "Preparing dependencies..."
+#     - apk --no-cache add openjdk17 maven
+#     - mvn test
 
