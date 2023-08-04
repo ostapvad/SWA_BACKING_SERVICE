@@ -1,13 +1,15 @@
 stages:
-  - build
+  - app-build
   - test
 
 job_build:
-  stage: build
+  stage: app-build
   script:
-    - echo "Building the project..."
+    - echo "Building the Spring Boot project"
+    - mvn package
 
 job_test:
   stage: test
   script:
     - echo "Running tests..."
+    - mvn test
