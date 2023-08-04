@@ -11,16 +11,14 @@ stages:
   - build
   - test
 
-build-job:
+build_job:
   stage: build
-  only:
-    - master
   script:
     - echo "Preparing dependencies..."
     - apk --no-cache add openjdk17 maven
     - mvn package
 
-test-job:
+test_job:
   stage: test
     - echo "Preparing dependencies..."
     - apk --no-cache add openjdk17 maven
