@@ -8,20 +8,22 @@ before_script:
   - docker info
 
 stages:         
-  - build
-  - test
+  - build-app
+  - test-app
 
 build_job:
-  stage: build
+  stage: build-app
   script:
-    - echo "Preparing dependencies..."
-    - apk --no-cache add openjdk17 maven
+    - echo "Building Spring Boot app..."
+   # - apk --no-cache add openjdk17 maven
     - mvn package
 
 test_job:
-  stage: test
+  stage: test-app
   script:  
-    - echo "Preparing dependencies..."
+    - echo "Running tests..."
     - apk --no-cache add openjdk17 maven
     - mvn test
+
+
 
