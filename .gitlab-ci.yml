@@ -18,6 +18,14 @@ build_job:
     - echo "Building Spring Boot app..."
     - apk --no-cache add maven
     - mvn package
+    - mkdir app_jars
+    - mv target/*.jar app_jars/backingService.jar
+
+  artifacts:
+    expire_in: 1 hrs
+    paths:
+      - app_jars
+    
 
 test_job:
   stage: test-app
@@ -28,6 +36,9 @@ test_job:
 
 job_build_docker_image:
   stage: build-docker-image
+  before_script:
+    - mkdir target
+    - cp app_jars/backingService.jar target/backingService.jar
   script:
     - echo "Building Docker image..."
     - docker build -t backing_service:latest .
