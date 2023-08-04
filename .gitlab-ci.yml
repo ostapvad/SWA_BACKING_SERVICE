@@ -4,9 +4,6 @@ image: docker:20.10.16
 services:
   - docker:20.10.16-dind
 
-before_script:
-  - docker info
-
 stages:         
   - build-app
   - test-app
@@ -34,7 +31,7 @@ test_job:
     - apk --no-cache add openjdk17 maven
     - mvn test
 
-job_build_docker_image:
+build_docker_image_job:
   stage: build-docker-image
   before_script:
     - mkdir target
