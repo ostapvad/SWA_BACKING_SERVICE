@@ -1,17 +1,28 @@
-image: maven:3-jdk-17
 
-stages:
-  - app-build
+image: docker:20.10.16
+
+services:
+  - docker:20.10.16-dind
+
+before_script:
+  - docker info
+
+stages:         
+  - build
   - test
 
-job_build:
-  stage: app-build
+build-job:
+  stage: build
+  only:
+    - master
   script:
-    - echo "Building the Spring Boot project"
+    - echo "Preparing dependencies..."
+    - apk --no-cache add openjdk17 maven
     - mvn package
 
-job_test:
+test-job:
   stage: test
-  script:
-    - echo "Running tests..."
+    - echo "Preparing dependencies..."
+    - apk --no-cache add openjdk17 maven
     - mvn test
+
