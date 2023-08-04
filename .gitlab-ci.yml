@@ -10,6 +10,7 @@ before_script:
 stages:         
   - build-app
   - test-app
+  - build-docker-image
 
 build_job:
   stage: build-app
@@ -25,5 +26,9 @@ test_job:
     - apk --no-cache add openjdk17 maven
     - mvn test
 
-
+job_build_docker_image:
+  stage: build-docker-image
+  script:
+    - echo "Building Docker image..."
+    - docker build -t backing_service:latest .
 
