@@ -26,11 +26,6 @@ functionalities. The Open API Swagger documentation can be accessed at http://lo
 ## Authors
 
 - Vadym Ostapovych - ostapva@fel.cvut.cz
-- Tomáš Hauser - hausetom@fel.cvut.cz
+- Tomáš Hauser - hauseto2@fel.cvut.cz
 
-### ToDo list
-
-- [x] Basis functionality
-- [x] Docker integration
-- [ ] Resolve volume store for postgres
 
